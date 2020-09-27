@@ -1,6 +1,6 @@
-package com.othello.othello;
+package com.othello;
 
-import com.othello.othello.service.BoardService;
+import com.othello.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
