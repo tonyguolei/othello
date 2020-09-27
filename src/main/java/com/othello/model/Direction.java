@@ -1,4 +1,4 @@
-package com.othello.othello.model;
+package com.othello.model;
 
 /**
  * The direction is used to make move

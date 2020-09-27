@@ -1,4 +1,4 @@
-package com.othello.othello.exception;
+package com.othello.exception;
 
 public class OthelloException extends Exception {
     public OthelloException() {

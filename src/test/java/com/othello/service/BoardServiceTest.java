@@ -1,7 +1,7 @@
-package com.othello.othello.service;
+package com.othello.service;
 
-import com.othello.othello.exception.OthelloException;
-import com.othello.othello.model.Point;
+import com.othello.exception.OthelloException;
+import com.othello.model.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

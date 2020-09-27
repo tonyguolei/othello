@@ -1,9 +1,9 @@
-package com.othello.othello.service;
+package com.othello.service;
 
 import com.google.common.collect.ImmutableMap;
-import com.othello.othello.exception.OthelloException;
-import com.othello.othello.model.Direction;
-import com.othello.othello.model.Point;
+import com.othello.exception.OthelloException;
+import com.othello.model.Direction;
+import com.othello.model.Point;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

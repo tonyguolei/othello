@@ -1,4 +1,4 @@
-package com.othello.othello.model;
+package com.othello.model;
 
 import java.util.Objects;
 
