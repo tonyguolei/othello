@@ -7,7 +7,10 @@ import com.othello.model.Point;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Board Service
@@ -70,7 +73,7 @@ public class BoardService {
      */
     protected String getInputMove() {
         String sPlayer = currentPlayer == 1 ? "X" : "O";
-        System.out.print("Player " + sPlayer + " turn : ");
+        System.out.print("Player ‘" + sPlayer + "’ move : ");
         Scanner input=new Scanner(System.in);
         return input.nextLine();
     }
@@ -104,35 +107,35 @@ public class BoardService {
         }
 
         /**
-         * if player X play, the move is started with letter, and end with a number ex: "e6"
-         * if player Y play, the move is started with number, and end with a letter ex: "6e"
          * use ascii code to convert x and y between 0 - 7 (board size)
          */
-        int x = move.charAt(0);
-        int y = move.charAt(1);
+        int x = -1;
+        int y = -1;
 
-        if (currentPlayer == 1) {
-            x -= 97;
-            y -= 49;
+        if(97 <= move.charAt(0)) {
+            y = move.charAt(0) - 97;
+        } else {
+            x = move.charAt(0) - 49;
         }
 
-        if (currentPlayer == 2) {
-            x -= 49;
-            y -= 97;
+        if(97 <= move.charAt(1)) {
+            y = move.charAt(1) - 97;
+        } else {
+            x = move.charAt(1) - 49;
         }
 
         if(isMoveOutOfBound(x, y)) {
-            throw new OthelloException("Move is not valid ！！！");
+            throw new OthelloException("Invalid move. Please try again.");
         }
 
         if(board[x][y] != 0) {
-            throw new OthelloException("The position is not empty ！！！");
+            throw new OthelloException("Invalid move. Please try again.");
         }
 
         Set<Point> possibleMoves = getPossibleMoves();
         Point point = new Point(x,y);
         if(!possibleMoves.contains(new Point(x,y))) {
-            throw new OthelloException("Move is not valid ！！！");
+            throw new OthelloException("Invalid move. Please try again.");
         }
         return point;
     }
@@ -232,9 +235,11 @@ public class BoardService {
             int scoreX = getScore(1);
             int scoreY = getScore(2);
             if(scoreX > scoreY) {
-                System.out.println("Player X wins " + scoreX + " VS " + scoreY);
+                System.out.println("No further moves available");
+                System.out.println("Player 'X' wins " + '(' + scoreX + " VS " + scoreY + ')');
             } else if (scoreX < scoreY) {
-                System.out.println("Player Y wins " + scoreX + " VS " + scoreY);
+                System.out.println("No further moves available");
+                System.out.println("Player 'Y' wins " + '(' + scoreX + " VS " + scoreY + ')');
             } else {
                 System.out.println("This game is a tie");
             }
@@ -279,18 +284,29 @@ public class BoardService {
      * print the board
      */
     public void printBoard() {
-        System.out.println("==========================");
-        Arrays.stream(board).map(this::convertpointToXorO).forEach( e->System.out.println(Arrays.toString(e)));
-        System.out.println("==========================\n");
+        for(int x=0; x<board.length; x++) {
+            System.out.print(x+1);
+            for(int y=0; y<board.length; y++) {
+                System.out.print(convertPointToXorO(board[x][y]));
+            }
+            System.out.println("");
+        }
+
+        System.out.print(" ");
+        for(int x=0; x<board.length; x++) {
+            System.out.print((char) (x + 97));
+        }
+
+        System.out.println("");
     }
 
     /**
-     * convert board from 0,1,2 to "-", "X", "O" by using printBoardMap
-     * @param array
+     * convert board from 0,1,2 to 3"-", "X", "O" by using printBoardMap
+     * @param point
      * @return
      */
-    private String[] convertpointToXorO(int[] array) {
-        return Arrays.stream(array).mapToObj(printBoardMap::get).toArray(String[]::new);
+    private String convertPointToXorO(int point) {
+        return printBoardMap.get(point);
     }
 
     public int[][] getBoard() {

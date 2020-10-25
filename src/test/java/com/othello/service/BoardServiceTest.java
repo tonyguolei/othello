@@ -97,7 +97,21 @@ class BoardServiceTest {
                 {1,1,1,1,1,1,1,1},
                 {0,0,0,0,0,0,0,0},
         };
-        boardService.setBoard(board);
+        boardService.setBoard(board2);
+        bGameOver = boardService.isGameOver();
+        assertTrue(bGameOver);
+
+        int[][] board3 = {
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1},
+                {2,2,2,2,2,2,2,2},
+        };
+        boardService.setBoard(board3);
         bGameOver = boardService.isGameOver();
         assertTrue(bGameOver);
     }
